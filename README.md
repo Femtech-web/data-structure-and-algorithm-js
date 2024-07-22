@@ -60,7 +60,7 @@ The Binary search algorithm steps involve
 
 example
 
-`
+```javascript
 function binarySearch(\_SORTED_LIST, \_ITEM) {
 let low = 0;
 let high = \_SORTED_LIST.length - 1;
@@ -85,4 +85,72 @@ return null;
 const sortedList = [2, 4, 6, 8, 10];
 const foundItem = binarySearch(sortedList, 8);
 console.log(foundItem); // 8
-`
+```
+
+## Arrays and Linked list
+
+The way the computer memory stores data in more like a large set of drawers and each drawer with a storage address number. so when you want to store one item, you ask for a drawer and if two items, two drawers. There would be different scenarios where you would want to store some sets/collection of related information in your computer memory. There are two ways to do that in different scenarios appropiate to each:
+
+### Arrays
+
+Array is a linear data structure that lets you store your data next to each other in computer memory. For Arrays you can only have a predetermined set of computer memory which are next to each other. Arrays are better preferred in terms of reading from computer memory.
+
+some of the characteristics of arrays are
+
+- random access
+- faster sequential access
+- memory efficient
+- operates in linear O(n) time in terms of insertion and deletion
+- operates in constant time O(1) in terms of reading.
+- supports caching
+
+### Linked list
+
+Another way to store related information in the computer memory is through a linked list. what makes a linked list different from an array is that, you can store your related data scattered across your computer memory yet with each item holding an adress to the next which makes it possible to link and access the related items.
+
+some characteristics of linked list are
+
+- can store related items scattered across computer memory
+- operates in linear O(n) time in terms of reading
+- operates in constant time O(1) in insertion and deletion.
+- needs extra memory/space to store item address(pointers).
+
+## Selection Sort Algorithm
+
+Selection sort is a sorting algorithm used to sort items like from highest to lowest or lowest to highest or based on your condition in an array. you can sort names in a record, messages (from oldest to newest in an inbox) and son on. selection sort is neat but not very fast.
+
+## Example of a selection sort algorithm
+
+```javascript
+function findSmallest(arr) {
+  let smallest = arr[0];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] < smallest) {
+      smallest = arr[i];
+    }
+  }
+
+  return smallest;
+}
+
+// const smallest = findSmallest([8, 7, 4, 2, 9, 1]);
+// console.log(smallest); -- 1 --
+
+function sortArray(arr) {
+  let newArray = [];
+  let copiedArray = [...arr];
+
+  for (let i = 0; i < copiedArray.length; ) {
+    let smallest = findSmallest(copiedArray);
+    newArray.push(smallest);
+    copiedArray = copiedArray.filter((item) => item !== smallest);
+  }
+
+  return newArray;
+}
+
+const sortedArray = sortArray([8, 7, 4, 2, 9, 1]);
+console.log(sortedArray);
+[1, 2, 4, 7, 8, 9]; //
+```
