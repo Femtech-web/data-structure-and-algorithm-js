@@ -154,3 +154,33 @@ const sortedArray = sortArray([8, 7, 4, 2, 9, 1]);
 console.log(sortedArray);
 [1, 2, 4, 7, 8, 9]; //
 ```
+
+## Recursion
+
+Recursion is a coding technique that is used in many algorithm. it is simply a function calling itself again util a condition is met. Recursion has two parts, the base case and the recursive case. The base case tells the recursion to stop based on a condition and the recursion case tells it to continue else the function may run into an infinite loop and may crash your pc.
+
+Most times,in some situations, using a loop is preferred to recursion as it takes up so much space in the computer memory when it is using the call stack to manage a lot of function calls.
+
+### understanding the call stack
+
+The call stack is a very important concept in the world of programming generally. It is simply a data structure (FIFO) that the computer uses internally to manage allocate memory and execute function calls.
+
+Recursion uses the call stack to manage functions call and successfully complete it's operations.
+
+### Example
+
+```javascript
+function factorial(x) {
+  if (x === 1) {
+    return x;
+  } else {
+    let nxtValue = x - 1;
+    return x * factorial(nxtValue);
+  }
+}
+
+const answer = factorial(8);
+console.log(answer); //40320
+```
+
+## Divide and Conquer
