@@ -1,6 +1,6 @@
 # Data-structure-and-Algorithm-js
 
-Notes and implementations on DSA
+My Notes and implementations on DSA
 
 ## Variables
 
@@ -184,3 +184,50 @@ console.log(answer); //40320
 ```
 
 ## Divide and Conquer
+
+Divide and conquer is a problem solving technique to solve certain algorithms problems. is is a way to think about solving a problem.
+
+### How it works
+
+How divide and conquer work is that:
+
+- First figure out a simple case as the base case
+- Then figure out how to reduce your problem and get to the base case
+
+heres a simple function that uses divide and conquer to sum all the figures in the list/array.
+
+```javascript
+function sum(arr) {
+  if (arr.length === 0) {
+    return 0;
+  }
+
+  let firstItem = arr[0];
+  let reducedArr = arr.filter((_, index) => index !== arr.indexOf(firstItem));
+
+  let accumulatedSum = firstItem + sum(reducedArr);
+  return accumulatedSum;
+}
+
+const result = sum([4, 6, 8, 6, 5, 9, 5]);
+console.log(result); //43
+```
+
+## Quick sort
+
+Quick sort is a sorting algorithm that uses divide and conquer to solve real life problems. it's much faster than selection sort.
+Quick sort is unique because it's speed depends on the pivot you choose. Quick sort is also tricky because normally/averagely it takes O(n log n) but in the worst case O(n2).
+
+### How it works
+
+How quick sort works is that:
+
+- You first pick a random element from the list/array which is known as the **pivot** - - Then you find the elements smaller than the pivot and bigger than the pivot in separate sub arrays (this is also called partitioning). This two sub-arrays are not sorted but just **partitioned**(if they are sorted too, then all good and makes the whole sorting easier).
+- if the two sub-arrays are sorted, then you can combine the whole thing like this - left array + pivot + right array and you get a sorted array else you call quicksort on the left and right array recursively to get a sorted array.
+
+## Hash tables
+
+Hash table is a data structure that uses hash functions to intelligently store elements.Hash tables are also known as hash maps, maps, dictionaries and associative arrays. Hash functions map a string to a number. some requirements for a hash function are:
+
+- It needs to be consistent
+- It should map different words to different numbers

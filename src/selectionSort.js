@@ -10,8 +10,8 @@ function findSmallest(arr) {
   return smallest;
 }
 
-// const smallest = findSmallest([8, 7, 4, 2, 9, 1]);
-// console.log(smallest);
+const smallest = findSmallest([8, 7, 4, 2, 9, 1]);
+console.log(smallest); // 2
 
 function sortArray(arr) {
   let newArray = [];
