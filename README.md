@@ -253,3 +253,30 @@ let's say you have 4 items in an array of 8 slot, that would be 4/8 which is 0.5
 \*note: The load factor is bad when it is greater than 1.
 
 ## Graphs
+
+A graph is a data structure that models a set of connections. it defines the relationship between some sets of elements. There are two types of graph, we have the directed graph and undirected graph. In directed graph, nodes have arrows(edges) pointing to them but no arrows from them to someone else, while undirected graphs doesn't have any arrows.
+
+Graphs are made up of:
+
+- nodes and
+- edges
+
+let's take some group of people for example, so nodes are the people(and there attributes) while edges indicate which people know each other.
+
+## Breadth-first-search(BFS)
+
+BFS is a type of algorithm that runs on a graph. it can help answer two types of question:
+
+- Is there a path from node A to node B
+- What is the shortest path from node A to node B
+
+There are steps to follow in implementing a BFS.
+
+1. You have to implement the the problem graph in code(you can use like a hash table to map nodes to other nodes)
+2. Create a queue to store all the nodes to check or search through.
+3. Add the values(properties) of the starting node in the queue for a start.
+4. You also initialize a list to keep a record of people you've already checked so not to check twice.
+5. Check items in the queue to see if they meet the requirement of what you need then you return the item else you keep checking and adding other items properties to the queue(\*note: queue runs in the order items are added).
+6. if no item matches the condition, then nothing is returned and the loop stops.
+
+BFS algorithm takes O(V+E) to run. V is num of vertices while E is num of edges.
