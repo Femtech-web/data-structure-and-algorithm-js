@@ -251,3 +251,5 @@ The load factor of hash tables is calculated by: number of items/total number of
 let's say you have 4 items in an array of 8 slot, that would be 4/8 which is 0.5 (this is a good load factor). In the rule of thumb, it is good to make an array which is twice the size of items in it else you need to resize(this is expensive so you need not to do it often). it is also good to resize your hash when the load factor is greater than 0.7.
 
 \*note: The load factor is bad when it is greater than 1.
+
+## Graphs
