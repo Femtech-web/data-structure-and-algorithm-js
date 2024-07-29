@@ -231,3 +231,23 @@ Hash table is a data structure that uses hash functions to intelligently store e
 
 - It needs to be consistent
 - It should map different words to different numbers
+
+\*note: Hash tables are very fast compared to arrays when you need to read a data as they run in constant time O(1) at average and linear time O(n) at worst.
+
+### use cases
+
+1. Hashes are used for table lookups. e.g A phone-book functionality that maps a name to a number and also gets the number by the name.
+2. Hashes are also used to prevent duplicate entries.
+3. They are also used to cache/memoize data instead of making the server do the same work all over again.
+
+### Collisions and Performance
+
+collisions is when your hash functions map two key-value pair to a slot in the array. Hash tables are as fast as arrays in searching (getting a value at an index), and they are as fast as linked list at inserts and deletes. But in the worst case, they are slow in all of those. So it is very crucial to avoid collisions. Avoiding collisions means you need
+
+- A low load factor
+- A good hash function
+
+The load factor of hash tables is calculated by: number of items/total number of array slot.
+let's say you have 4 items in an array of 8 slot, that would be 4/8 which is 0.5 (this is a good load factor). In the rule of thumb, it is good to make an array which is twice the size of items in it else you need to resize(this is expensive so you need not to do it often). it is also good to resize your hash when the load factor is greater than 0.7.
+
+\*note: The load factor is bad when it is greater than 1.
