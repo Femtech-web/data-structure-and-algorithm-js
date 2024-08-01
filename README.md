@@ -265,7 +265,7 @@ let's take some group of people for example, so nodes are the people(and there a
 
 ## Breadth-first-search(BFS)
 
-BFS is a type of algorithm that runs on a graph. it can help answer two types of question:
+BFS is a type of algorithm that runs on a graph/trees. BFS is also a traversal algorithm as it visits every node in the graph/tree. it can help answer two types of question:
 
 - Is there a path from node A to node B
 - What is the shortest path from node A to node B
@@ -280,3 +280,15 @@ There are steps to follow in implementing a BFS.
 6. if no item matches the condition, then nothing is returned and the loop stops.
 
 BFS algorithm takes O(V+E) to run. V is num of vertices while E is num of edges.
+
+## Trees
+
+A tree data structure is a type of graph.We can say it is a connected acyclic graph. In a tree, we have a root node(this the first parent and it dose'nt have a predecessor), a parent(this is a node that has children), a child(a child can not have more than a parent) and a leaf node(this is a node without a child/children). A file directory is an example of a tree.
+
+\*note: Trees don't have cycles unlike graphs.
+
+## Depth-firs-search(DFS)
+
+This is also an algorithm used on graphs/trees. It also searches a path to meet a specified condition but it is slightly different from BFS. DFS is different from BFS in the sense that, it doesn't find the closest path but rather goes deep into in a particular path. DFS is also good for use cases such as topological sort.
+
+## Binary trees

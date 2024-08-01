@@ -1,3 +1,6 @@
+const path = require("node:path");
+const fs = require("node:fs/promises");
+
 const graph = new Map();
 
 graph.set("femi", ["tunde", "tade", "bolu", "joseph"]);
@@ -36,3 +39,31 @@ function breadthFirstSearch(name) {
 
 const result = breadthFirstSearch("femi");
 console.log(result);
+
+// -------- searching a file directory using bfs ------
+async function searchFile(dir) {
+  let queueToSearch = [];
+
+  let initialpath = path.join(__dirname, dir);
+  queueToSearch.push(initialpath);
+
+  while (queueToSearch.length !== 0) {
+    let pathToSearch = queueToSearch.shift();
+    const contents = await fs.readdir(pathToSearch);
+
+    for (let node of contents) {
+      const filePath = path.join(pathToSearch, node);
+      const stat = await fs.stat(filePath);
+
+      if (stat.isFile()) {
+        console.log(node);
+      } else {
+        queueToSearch.push(filePath);
+      }
+    }
+  }
+
+  return;
+}
+
+searchFile("test");
