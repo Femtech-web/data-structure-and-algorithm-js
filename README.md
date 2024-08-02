@@ -281,6 +281,52 @@ There are steps to follow in implementing a BFS.
 
 BFS algorithm takes O(V+E) to run. V is num of vertices while E is num of edges.
 
+Here is an example below
+
+```javascript
+const path = require("node:path");
+const fs = require("node:fs/promises");
+
+const graph = new Map();
+
+graph.set("femi", ["tunde", "tade", "bolu", "joseph"]);
+graph.set("bolu", ["isaac", "mango seller"]);
+graph.set("tunde", ["iremide"]);
+graph.set("tade", ["kunle"]);
+graph.set("joseph", []);
+graph.set("isaac", []);
+graph.set("mango seller", []);
+graph.set("iremide", []);
+graph.set("kunle", []);
+
+console.log(graph);
+
+function breadthFirstSearch(name) {
+  let queueToSearch = [];
+  let searchedName = new Set();
+
+  queueToSearch = [...queueToSearch, ...graph.get(name)];
+
+  while (queueToSearch.length !== 0) {
+    let nextPerson = queueToSearch.shift();
+
+    if (!searchedName.has(nextPerson)) {
+      if (nextPerson.includes("mango seller")) {
+        return nextPerson;
+      } else {
+        queueToSearch = [...queueToSearch, ...graph.get(nextPerson)];
+        searchedName.add(nextPerson);
+      }
+    }
+  }
+
+  return false;
+}
+
+const result = breadthFirstSearch("femi");
+console.log(result);
+```
+
 ## Trees
 
 A tree data structure is a type of graph.We can say it is a connected acyclic graph. In a tree, we have a root node(this the first parent and it dose'nt have a predecessor), a parent(this is a node that has children), a child(a child can not have more than a parent) and a leaf node(this is a node without a child/children). A file directory is an example of a tree.
@@ -291,4 +337,46 @@ A tree data structure is a type of graph.We can say it is a connected acyclic gr
 
 This is also an algorithm used on graphs/trees. It also searches a path to meet a specified condition but it is slightly different from BFS. DFS is different from BFS in the sense that, it doesn't find the closest path but rather goes deep into in a particular path. DFS is also good for use cases such as topological sort.
 
+This is an example below
+
+```javascript
+const path = require("node:path");
+const fs = require("node:fs/promises");
+
+async function deepFirstSearch(dir) {
+  const initialpath = path.join(__dirname, dir);
+  const contents = await fs.readdir(initialpath);
+
+  for (let name of contents) {
+    let fullPath = path.join(initialpath, name);
+    const stat = await fs.stat(fullPath);
+
+    if (stat.isFile()) {
+      console.log(name);
+    } else {
+      let nextDir = `${dir}/${name}`;
+      deepFirstSearch(nextDir);
+    }
+  }
+}
+
+deepFirstSearch("test");
+```
+
 ## Binary trees
+
+A Binary tree is a special kind of tree where node can have at most two children. Huffman coding uses binary trees to cleverly compress content/text in files. In huffman coding, instead of the normal convention where a character takes 1 byte of space in memory(8 bits), huffman coding allows characters to have any amount of bit lesser than 8 based on there location on the tree (using the left and right subtree to determine character bit values).
+
+## Binary Search Trees(BSTs)
+
+Binary search trees is a type of binary tree. It inherits it's properties also of that each node can have at most two children. what makes BST special/different is that the value of the left child is smaller or lesser than the node and the value of the right child is bigger or greater than the node. Also all the numbers/values in the left child subtree are smaller than the node.
+
+Binary search trees combine the best performance of the O(1) insertion time of a linked list and the O(log n) search time of a sorted array. so it means we could have a perfect data structure that gives us a balanced performance in insertions and search operation. Although performance can also be different based on the height and structure of the tree. so that means you can have a tree with seven nodes and one based on the structure/height can give a performance of O(n) while the other O(log n). That is why we need a **balanced binary tree**.
+
+## AVL Trees
+
+AVL is a type of self balancing binary tree i.e, it will maintain a height of O(log n) when the tree is out of balance by correcting itself through **Rotations**. AVL guarantees that the height of a binary tree would be O(log n).
+
+### Rotation
+
+Rotation simply means when you move a set of nodes to end up with a new arrangement. The way AVL uses rotations to re-balance itself or tree is that: It stores the height or balance factor(it could be -1, 1, 0 etc based on the subtree height difference) to re-balance.
