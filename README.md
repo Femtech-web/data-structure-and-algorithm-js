@@ -373,10 +373,220 @@ Binary search trees is a type of binary tree. It inherits it's properties also o
 
 Binary search trees combine the best performance of the O(1) insertion time of a linked list and the O(log n) search time of a sorted array. so it means we could have a perfect data structure that gives us a balanced performance in insertions and search operation. Although performance can also be different based on the height and structure of the tree. so that means you can have a tree with seven nodes and one based on the structure/height can give a performance of O(n) while the other O(log n). That is why we need a **balanced binary tree**.
 
+```js
+class NodeInstance {
+  constructor(value) {
+    this.value = value;
+    this.leftChild = null;
+    this.rightChild = null;
+  }
+}
+
+class BST {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    const newNode = new NodeInstance(value);
+
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  insertNode(parentNode, newNode) {
+    if (newNode.value < parentNode.value) {
+      if (parentNode.leftChild === null) {
+        parentNode.leftChild = newNode;
+      } else {
+        this.insertNode(parentNode.leftChild, newNode);
+      }
+    } else {
+      if (parentNode.rightChild === null) {
+        parentNode.rightChild = newNode;
+      } else {
+        this.insertNode(parentNode.rightChild, newNode);
+      }
+    }
+  }
+
+  search(rootNode, value) {
+    if (rootNode === null) {
+      return null;
+    }
+
+    if (value < rootNode.value) {
+      return this.search(rootNode.leftChild, value);
+    } else if (value > rootNode.value) {
+      return this.search(rootNode.rightChild);
+    } else {
+      return node;
+    }
+  }
+
+  logInOrder(node, callback) {
+    if (node !== null) {
+      this.logInOrder(node.leftChild, callback);
+      callback(node.value);
+      this.logInOrder(node.rightChild, callback);
+    }
+  }
+}
+
+const treeInstance = new BST();
+
+treeInstance.insert(15);
+treeInstance.insert(25);
+treeInstance.insert(10);
+treeInstance.insert(7);
+treeInstance.insert(22);
+treeInstance.insert(17);
+treeInstance.insert(13);
+
+// console.log(treeInstance);
+
+const printValue = (value) => console.log(value);
+treeInstance.logInOrder(treeInstance.root, printValue);
+```
+
 ## AVL Trees
 
 AVL is a type of self balancing binary tree i.e, it will maintain a height of O(log n) when the tree is out of balance by correcting itself through **Rotations**. AVL guarantees that the height of a binary tree would be O(log n).
 
+```js
+class AVLNode {
+  constructor(value) {
+    this.value = value;
+    this.leftChild = null;
+    this.rightChild = null;
+    this.height = 1;
+  }
+}
+
+class AVLTree {
+  constructor() {
+    this.root = null;
+    this.rotateRightTimes = 0;
+    this.rotateLeftTimes = 0;
+  }
+
+  getHeight(node) {
+    return node ? node.height : 0;
+  }
+
+  getBalanceFactor(node) {
+    return node
+      ? this.getHeight(node.leftChild) - this.getHeight(node.rightChild)
+      : 0;
+  }
+
+  rotateRight(y) {
+    const x = y.leftChild;
+    const T2 = x.rightChild;
+
+    x.rightChild = y;
+    y.leftChild = T2;
+
+    y.height =
+      Math.max(this.getHeight(y.leftChild), this.getHeight(y.rightChild)) + 1;
+    x.height =
+      Math.max(this.getHeight(x.leftChild), this.getHeight(x.rightChild)) + 1;
+
+    this.rotateRightTimes++;
+    console.log(`i rotated right ${this.rotateRightTimes} times`);
+
+    return x;
+  }
+
+  rotateLeft(x) {
+    const y = x.rightChild;
+    const T2 = y.leftChild;
+
+    y.leftChild = x;
+    x.rightChild = T2;
+
+    x.height =
+      Math.max(this.getHeight(x.leftChild), this.getHeight(x.rightChild)) + 1;
+    y.height =
+      Math.max(this.getHeight(y.leftChild), this.getHeight(y.rightChild)) + 1;
+
+    this.rotateLeftTimes++;
+    console.log(`i rotated left ${this.rotateLeftTimes} times`);
+
+    return y;
+  }
+
+  insert(node, value) {
+    if (node === null) {
+      return new AVLNode(value);
+    }
+
+    if (value < node.value) {
+      node.leftChild = this.insert(node.leftChild, value);
+    } else if (value > node.value) {
+      node.rightChild = this.insert(node.rightChild, value);
+    } else {
+      return node;
+    }
+
+    node.height =
+      1 +
+      Math.max(this.getHeight(node.leftChild), this.getHeight(node.rightChild));
+
+    const balance = this.getBalanceFactor(node);
+
+    if (balance > 1 && value < node.leftChild.value) {
+      return this.rotateRight(node);
+    }
+    if (balance < -1 && value > node.rightChild.value) {
+      return this.rotateLeft(node);
+    }
+    if (balance > 1 && value > node.leftChild.value) {
+      node.leftChild = this.rotateLeft(node.leftChild);
+      return this.rotateRight(node);
+    }
+    if (balance < -1 && value < node.rightChild.value) {
+      node.rightChild = this.rotateRight(node.rightChild);
+      return this.rotateLeft(node);
+    }
+
+    return node;
+  }
+
+  preOrderTraverse(node) {
+    if (node !== null) {
+      console.log(node.value);
+      this.preOrderTraverse(node.leftChild);
+      this.preOrderTraverse(node.rightChild);
+    }
+  }
+}
+
+const avl = new AVLTree();
+avl.root = avl.insert(avl.root, 15);
+avl.root = avl.insert(avl.root, 10);
+avl.root = avl.insert(avl.root, 25);
+avl.root = avl.insert(avl.root, 7);
+avl.root = avl.insert(avl.root, 13);
+avl.root = avl.insert(avl.root, 5);
+avl.root = avl.insert(avl.root, 8);
+
+avl.preOrderTraverse(avl.root);
+```
+
 ### Rotation
 
 Rotation simply means when you move a set of nodes to end up with a new arrangement. The way AVL uses rotations to re-balance itself or tree is that: It stores the height or balance factor(it could be -1, 1, 0 etc based on the subtree height difference) to re-balance.
+
+## Splay Trees
+
+Splay trees are also a type of Balanced BSTs. One cool thing about them is that, if you have recently looked up an item, the next time you look it up, the look will be faster. How splay trees make this happen is that, when you look up a node for instance, it makes that node the new root so when you look it up the next time, the **seek time** would be faster. The trade off here is that the tree is not guaranteed to be balance as some searches may take longer than O(log n) time and while performing some searches, you will have to move up the node to root if it is not the root which would take slightly some additional time. The trade off not matter much as the overall search time would still average to O(log n) time and that fast search time is the goal.
+
+## B-Trees
+
+B-trees are a more generalized form of binary tree. unlike Binary trees, A B-Tree node can have more than two children. Also unlike other Binary trees, A B-Tree node can have more than one key too. Something to note in B-trees is that, they still follow the property of binary search tree (the children of the left node are always smaller than the node and those on the right are greater than the node), and the number of children is one greater than the number of nodes(so let's say we have a node of one key, then then children will be two and if a node of two keys, then the children will be three).
+
+The advantage of B-Trees is that: They have physical optimizations i.e while fetching for a node, they fetch additional nodes one time at a go into memory, which makes them faster.
