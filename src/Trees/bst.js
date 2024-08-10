@@ -54,7 +54,7 @@ class BST {
   logInOrder(node, callback) {
     if (node !== null) {
       this.logInOrder(node.leftChild, callback);
-      callback(node.value);
+      console.log(node.value);
       this.logInOrder(node.rightChild, callback);
     }
   }

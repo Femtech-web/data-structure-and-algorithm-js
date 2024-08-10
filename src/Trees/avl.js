@@ -115,4 +115,6 @@ avl.root = avl.insert(avl.root, 13);
 avl.root = avl.insert(avl.root, 5);
 avl.root = avl.insert(avl.root, 8);
 
+// console.log(avl);
+
 avl.preOrderTraverse(avl.root);

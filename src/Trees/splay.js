@@ -102,4 +102,4 @@ splayTree.insert(40);
 splayTree.insert(50);
 splayTree.insert(25);
 
-splayTree.preOrderTraverse(splayTree.root); // Output might vary due to splaying
+splayTree.preOrderTraverse(splayTree.root);

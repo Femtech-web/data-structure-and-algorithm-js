@@ -9,7 +9,7 @@ class BTreeNode {
 class BTree {
   constructor(t) {
     this.root = new BTreeNode(true);
-    this.t = t; // Minimum degree
+    this.t = t;
   }
 
   search(node, key) {
