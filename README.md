@@ -335,3 +335,48 @@ DijKstra's Algorithm is a graph algorithm. it is to be used more specifically on
 - Set it's parent and update the cost of the neighbours of this node.
 - Repeat until you have done this for every node in the graph.
 - Calculate the final path.
+
+```js
+const processedNode = new Set();
+
+function findLowestCost(costs) {
+  let lowestCost = infinity;
+  let lowestNode = null;
+
+  for (let node of costs.keys()) {
+    const cost = costs.get(node);
+    const notProcessed = !processedNode.has(node);
+
+    if (cost < lowestCost && notProcessed) {
+      lowestCost = cost;
+      lowestNode = node;
+    }
+  }
+
+  return lowestNode;
+}
+
+function findShortestPath() {
+  let node = findLowestCost(costGraph);
+
+  while (node !== null) {
+    const cost = costGraph.get(node);
+    const neighbours = graph.get(node);
+
+    if (neighbours) {
+      for (let n of neighbours.keys()) {
+        let edgeCost = neighbours.get(n);
+        let newCost = cost + edgeCost;
+
+        if (costGraph.get(n) > newCost) {
+          costGraph.set(n, newCost);
+          parentGraph.set(n, node);
+        }
+      }
+    }
+
+    processedNode.add(node);
+    node = findLowestCost(costGraph);
+  }
+}
+```

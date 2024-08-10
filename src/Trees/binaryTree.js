@@ -60,6 +60,14 @@ class BinaryTree {
       }
     }
   }
+
+  logInPreOrder(node) {
+    if (node !== null) {
+      console.log(node.value);
+      this.logInPreOrder(node.leftChild);
+      this.logInPreOrder(node.rightChild);
+    }
+  }
 }
 
 const binaryTree = new BinaryTree();
@@ -72,6 +80,7 @@ binaryTree.insert(22);
 binaryTree.insert(17);
 binaryTree.insert(13);
 
-binaryTree.logInLevelOrder();
+// binaryTree.logInLevelOrder();
+binaryTree.logInPreOrder(binaryTree.root);
 
 // console.log(binaryTree);
