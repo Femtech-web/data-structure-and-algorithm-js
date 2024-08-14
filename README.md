@@ -329,7 +329,7 @@ console.log(result);
 
 ### DijKstra's Algorithm
 
-DijKstra's Algorithm is a graph algorithm. it is to be used more specifically on weighted graphs (A graph with weights). The way the algorithm works is in four steps:
+DijKstra's Algorithm is a graph algorithm. it is to be used more specifically on weighted graphs to calculate the shortest path (A graph with weights). Also note that the algorithm does not work with negative weights value. The way the algorithm works is in four steps:
 
 - Find the cheapest node (this is the node with the initial smallest weight/cost).
 - Set it's parent and update the cost of the neighbours of this node.
@@ -380,3 +380,7 @@ function findShortestPath() {
   }
 }
 ```
+
+## Greedy Algorithms
+
+Greedy Algorithms are algorithms that are simple yet produce quite a good result. It works by picking an optimal solution at every step/interval/iteration till a global solution is attained. Although in some cases greedy algorithms don't always work best.
