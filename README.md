@@ -384,3 +384,72 @@ function findShortestPath() {
 ## Greedy Algorithms
 
 Greedy Algorithms are algorithms that are simple yet produce quite a good result. It works by picking an optimal solution at every step/interval/iteration till a global solution is attained. Although in some cases greedy algorithms don't always work best.
+
+```js
+let statesNeeded = new Set([
+  "oha",
+  "itu",
+  "jasa",
+  "kale",
+  "tayon",
+  "jake",
+  "ale",
+  "tor",
+]);
+
+const stations = new Map();
+stations.set("kOne", ["tayon", "jake", "ale"]);
+stations.set("kTwo", ["itu", "tayon", "oha"]);
+stations.set("kThree", ["jasa", "tayon", "ale"]);
+stations.set("kFour", ["tayon", "jake"]);
+stations.set("kFive", ["ale", "tor"]);
+
+function findStations() {
+  const finalStations = new Set();
+
+  while (statesNeeded.size > 0) {
+    let bestStation = null;
+    let stateCovered = new Set();
+
+    for (let [station, value] of stations.entries()) {
+      let covered = new Set(
+        [...statesNeeded].filter((state) => value.includes(state))
+      );
+
+      if (covered.size > stateCovered.size) {
+        bestStation = station;
+        stateCovered = covered;
+      }
+    }
+
+    if (bestStation) {
+      finalStations.add(bestStation);
+      statesNeeded = new Set(
+        [...statesNeeded].filter((state) => !stateCovered.has(state))
+      );
+    } else {
+      break;
+    }
+  }
+
+  return finalStations;
+}
+
+const bestStations = findStations();
+console.log(bestStations);
+```
+
+## Dynamic Programming
+
+some key points about Dynamic Programming:
+
+- Dynamic Programming is useful when you are trying to optimize something given a constraint.
+- You can use dynamic programming when the problem can be broken into discrete sub-problems and they don't depend on each other.
+
+some key points when creating a dynamic programming solution
+
+- It's often useful to picture a dynamic programming problem as a grid.
+- The values in the cells are usually what you are trying to optimize. For the knapsack problem, the values were the value of the goods.
+- Each cell is a subproblem, so think about how you can divide your problem into sub-problems. That will help you figure out what the axes are.
+
+You have to know that there's no single/exact recipe for a dynamic programming problem, but you have to figure out a solution that works. Dynamic programming is more like a framework to build your solution on.
