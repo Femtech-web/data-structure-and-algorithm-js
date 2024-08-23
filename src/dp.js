@@ -1,66 +1,104 @@
-// recursive approach
-function knapsack(values, weights, W, n) {
-  if (n === 0 || W === 0) return 0;
+function fib(n, memo = {}) {
+  if (memo[n]) return memo[n];
+  if (n <= 1) return n;
 
-  if (weights[n - 1] > W) {
-    return knapsack(values, weights, W, n - 1);
-  } else {
-    return Math.max(
-      values[n - 1] + knapsack(values, weights, W - weights[n - 1], n - 1),
-      knapsack(values, weights, W, n - 1)
-    );
-  }
+  memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+
+  return memo[n];
 }
 
-const values = [60, 100, 120];
-const weights = [10, 20, 30];
-const W = 50;
-console.log(knapsack(values, weights, W, values.length)); // Outputs: 220
+console.log(fib(8));
 
-// memoization approach
-function knapsack(values, weights, W, n, memo = {}) {
-  if (n === 0 || W === 0) return 0;
-
-  if (`${n}-${W}` in memo) return memo[`${n}-${W}`];
-
-  if (weights[n - 1] > W) {
-    memo[`${n}-${W}`] = knapsack(values, weights, W, n - 1, memo);
-  } else {
-    memo[`${n}-${W}`] = Math.max(
-      values[n - 1] +
-        knapsack(values, weights, W - weights[n - 1], n - 1, memo),
-      knapsack(values, weights, W, n - 1, memo)
-    );
-  }
-
-  return memo[`${n}-${W}`];
-}
-
-console.log(knapsack(values, weights, W, values.length)); // Outputs: 220
-
-// tabulation approach
-function knapsack(values, weights, W) {
+function findValue(weights, values, capacity) {
   const n = values.length;
-  const dp = Array(n + 1)
-    .fill(0)
-    .map(() => Array(W + 1).fill(0));
+
+  let table = Array(n + 1)
+    .fill()
+    .map(() => Array(capacity + 1).fill(0));
 
   for (let i = 1; i <= n; i++) {
-    for (let w = 1; w <= W; w++) {
+    for (let w = 1; w <= capacity; w++) {
       if (weights[i - 1] <= w) {
-        dp[i][w] = Math.max(
-          values[i - 1] + dp[i - 1][w - weights[i - 1]],
-          dp[i - 1][w]
+        table[i][w] = Math.max(
+          table[i - 1][w],
+          table[i - 1][w - weights[i - 1]] + values[i - 1]
         );
       } else {
-        dp[i][w] = dp[i - 1][w];
+        table[i][w] = table[i - 1][w];
       }
     }
   }
 
-  return dp[n][W];
+  return table[n][capacity];
 }
 
-console.log(knapsack(values, weights, W)); // Outputs: 220
+const values = [10, 3, 9, 5, 6];
+const weights = [3, 1, 2, 2, 1];
+const capacity = 6;
 
-// ----------------------------------------------------------------------------------------------
+console.log(findValue(weights, values, capacity));
+
+function longestCommonString(A, B) {
+  const m = A.length;
+  const n = B.length;
+
+  let maxLength = 0;
+  let endIndex = 0;
+
+  const grid = Array(m + 1)
+    .fill()
+    .map(() => Array(n + 1).fill(0));
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (A[i - 1] === B[j - 1]) {
+        grid[i][j] = grid[i - 1][j - 1] + 1;
+
+        if (grid[i][j] > maxLength) {
+          maxLength = grid[i][j];
+          endIndex = i;
+        }
+      }
+    }
+  }
+
+  const longesSubstring = A.slice(endIndex - maxLength, endIndex);
+
+  return { maxLength, longesSubstring, endIndex };
+}
+
+// const A = "abcdfg";
+// const B = "abdfg";
+// const result = longestCommonString(A, B);
+// console.log(result);
+
+function longestCommonSubsequence(A, B) {
+  const m = A.length;
+  const n = B.length;
+
+  const grid = Array(m + 1)
+    .fill()
+    .map(() => Array(n + 1).fill(0));
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (A[i - 1] === B[j - 1]) {
+        grid[i][j] = grid[i - 1][j - 1] + 1;
+      } else {
+        grid[i][j] = Math.max(grid[i][j - 1], grid[i - 1][j]);
+      }
+    }
+  }
+
+  return grid[m][n];
+}
+
+// const A = "fosh";
+// const B = "fort";
+// const result = longestCommonSubsequence(A, B);
+// console.log(result); // 2
+
+const A = "fosh";
+const B = "fish";
+const result = longestCommonSubsequence(A, B);
+console.log(result); // 3
