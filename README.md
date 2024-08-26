@@ -453,3 +453,12 @@ some key points when creating a dynamic programming solution
 - Each cell is a subproblem, so think about how you can divide your problem into sub-problems. That will help you figure out what the axes are.
 
 You have to know that there's no single/exact recipe for a dynamic programming problem, but you have to figure out a solution that works. Dynamic programming is more like a framework to build your solution on.
+
+## K-Nearest-Neighbour(KNN)
+
+KNN is used for classification and regression. It involves looking at the k-nearest-neighbours (where k can be any number of neighbours greater than 1)
+
+- Classification means categorizing into a group while Regression means predicting a response (like a number).
+  In KNN, we extract features that can be compared to determine a neighbour, so **Feature Extraction** means converting an item into a list of numbers that can be compared
+
+* Picking a good feature is very important and vital for a successful KNN algorithm
