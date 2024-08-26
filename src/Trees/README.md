@@ -479,3 +479,113 @@ btree.insert(17);
 
 btree.traverse(btree.root); // Output: 5 6 7 10 12 17 20 30
 ```
+
+## Traversal
+
+In tree data structures, traversal refers to the process of visiting each node in the tree exactly once in a specific order. Traversal is fundamental for tasks such as searching, printing, or modifying the data in the nodes.
+
+### Types of Tree Traversal
+
+Tree traversals are broadly classified into two categories:
+
+1. **Depth-First Traversal (DFT)**
+2. **Breadth-First Traversal (BFT)**
+
+#### 1. **Depth-First Traversal (DFT)**
+
+In Depth-First Traversal, you explore as far as possible along each branch before backtracking. DFT can be further classified into:
+
+- **In-Order Traversal**
+- **Pre-Order Traversal**
+- **Post-Order Traversal**
+
+Let's take a binary tree as an example:
+
+```
+       1
+      / \
+     2   3
+    / \ / \
+   4  5 6  7
+```
+
+##### **a. In-Order Traversal (Left, Root, Right)**
+
+- Visit the left subtree, then the root, and finally the right subtree.
+- For the above tree, the traversal order would be: **4, 2, 5, 1, 6, 3, 7**
+
+**Example (In-Order):**
+
+```javascript
+function inOrder(node) {
+  if (node === null) return;
+  inOrder(node.left);
+  console.log(node.value);
+  inOrder(node.right);
+}
+```
+
+##### **b. Pre-Order Traversal (Root, Left, Right)**
+
+- Visit the root first, then the left subtree, and finally the right subtree.
+- For the above tree, the traversal order would be: **1, 2, 4, 5, 3, 6, 7**
+
+**Example (Pre-Order):**
+
+```javascript
+function preOrder(node) {
+  if (node === null) return;
+  console.log(node.value);
+  preOrder(node.left);
+  preOrder(node.right);
+}
+```
+
+##### **c. Post-Order Traversal (Left, Right, Root)**
+
+- Visit the left subtree, then the right subtree, and finally the root.
+- For the above tree, the traversal order would be: **4, 5, 2, 6, 7, 3, 1**
+
+**Example (Post-Order):**
+
+```javascript
+function postOrder(node) {
+  if (node === null) return;
+  postOrder(node.left);
+  postOrder(node.right);
+  console.log(node.value);
+}
+```
+
+#### 2. **Breadth-First Traversal (BFT)**
+
+In Breadth-First Traversal, also known as **Level-Order Traversal**, you visit nodes level by level starting from the root. All nodes at each level are visited before moving on to the next level.
+
+For the same binary tree:
+
+- The traversal order would be: **1, 2, 3, 4, 5, 6, 7**
+
+**Example (Level-Order):**
+
+```javascript
+function levelOrder(root) {
+  if (root === null) return;
+  let queue = [];
+  queue.push(root);
+
+  while (queue.length > 0) {
+    let node = queue.shift();
+    console.log(node.value);
+
+    if (node.left !== null) queue.push(node.left);
+    if (node.right !== null) queue.push(node.right);
+  }
+}
+```
+
+### categorization of Tree Traversal Types
+
+- **In-Order (DFT):** Left -> Root -> Right
+- **Pre-Order (DFT):** Root -> Left -> Right
+- **Post-Order (DFT):** Left -> Right -> Root
+- **Level-Order (BFT):** Visit nodes level by level starting from the root
